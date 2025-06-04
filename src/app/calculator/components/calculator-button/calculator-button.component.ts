@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, input, output, signal, 
 
 @Component({
   selector: 'app-calculator-button',
+  standalone: true,
   imports: [],
   templateUrl: './calculator-button.component.html',
   styleUrl: './calculator-button.component.css',

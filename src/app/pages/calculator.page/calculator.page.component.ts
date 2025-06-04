@@ -4,6 +4,7 @@ import { CalculatorComponent } from "@/calculator/components/calculator/calculat
 
 @Component({
   selector: 'app-calculator.page',
+  standalone: true,
   imports: [CalculatorComponent],
   templateUrl: './calculator.page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

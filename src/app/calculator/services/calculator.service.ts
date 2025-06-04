@@ -111,7 +111,9 @@ export class CalculatorService {
   public calculateResult(): void {
     const number1 = parseFloat(this.subResultText()); 
     const number2 = parseFloat(this.resultText());
-    
+
+    if(number1 === 0) return;
+
     let result = 0;
 
     switch(this.lastOperator()) {

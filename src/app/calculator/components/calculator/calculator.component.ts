@@ -4,6 +4,7 @@ import { CalculatorService } from '@/calculator/services/calculator.service';
 
 @Component({
   selector: 'app-calculator',
+  standalone: true,
   imports: [CalculatorButtonComponent],
   templateUrl: './calculator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,33 +19,38 @@ export class CalculatorComponent {
   public resultText = computed(() => this.calculatorService.resultText());
   public subResultText = computed(() => this.calculatorService.subResultText());
   public lastOperator = computed(() => this.calculatorService.lastOperator());
+  
+  private keyboardTimeout: ReturnType<typeof setTimeout> | null = null;
 
   public calculatorButtons = viewChildren(CalculatorButtonComponent);
 
   public handleClick(key: string): void {
-    console.log('handleClick', key);
     this.calculatorService.constructNumber(key);
   }
 
   // lection: host listener event (deprecated)
   // @HostListener('document:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
-    const key = event.key.toLowerCase();
+    if(this.keyboardTimeout) clearTimeout(this.keyboardTimeout);
 
-    const keyEquivalents: Record<string, string> = {
-      'escape': 'c',
-      'clear': 'c',
-      'enter': '=',
-      '*': 'x',
-      '/': '÷'
-    };
+    this.keyboardTimeout = setTimeout(() => {
+      const key = event.key.toLowerCase();
 
-    const keyValue = keyEquivalents[key] ?? key;
+      const keyEquivalents: Record<string, string> = {
+        'escape': 'c',
+        'clear': 'c',
+        'enter': '=',
+        '*': 'x',
+        '/': '÷'
+      };
 
-    this.handleClick(keyValue);
+      const keyValue = keyEquivalents[key] ?? key;
 
-    for(let button of this.calculatorButtons()) {
-      button.keyboardPressed(keyValue);
-    }
+      this.handleClick(keyValue);
+
+      for(let button of this.calculatorButtons()) {
+        button.keyboardPressed(keyValue);
+      }
+    }, 5);
   }
 }

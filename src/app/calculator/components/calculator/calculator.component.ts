@@ -21,14 +21,14 @@ export class CalculatorComponent {
 
   public calculatorButtons = viewChildren(CalculatorButtonComponent);
 
-  public handleClick(key: string) {
+  public handleClick(key: string): void {
     console.log('handleClick', key);
     this.calculatorService.constructNumber(key);
   }
 
   // lection: host listener event (deprecated)
   // @HostListener('document:keyup', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
+  handleKeyboardEvent(event: KeyboardEvent): void {
     const key = event.key.toLowerCase();
 
     const keyEquivalents: Record<string, string> = {

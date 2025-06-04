@@ -33,7 +33,7 @@ export class CalculatorButtonComponent {
   // lection: output signal
   public onClick = output<string>();
 
-  public handleClick () {
+  public handleClick(): void {
     if (!this.contentValue()) return;
 
     const value = this.contentValue()!.nativeElement.innerText;
@@ -44,7 +44,7 @@ export class CalculatorButtonComponent {
   // handle key press style in ui
   public isPressed = signal(false);
 
-  public keyboardPressed (key: string) {
+  public keyboardPressed(key: string): void {
     if (!this.contentValue()) return;
 
     const value = this.contentValue()!.nativeElement.innerText;
